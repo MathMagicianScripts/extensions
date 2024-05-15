@@ -1,0 +1,61 @@
+// Function to click the start button
+function clickStartButton() {
+  const startButton = document.querySelector("#wdbStartButton");
+  if (startButton) {
+    console.log("Clicking start button...");
+    startButton.click();
+    startButton.disabled = true; // Disable the start button after clicking once
+  } else {
+    console.log("Start button not found.");
+  }
+}
+
+// Function to click the stop button
+function clickStopButton() {
+  const stopButton = document.querySelector("#wdbStopButton");
+  if (stopButton) {
+    console.log("Clicking stop button...");
+    stopButton.click();
+  } else {
+    console.log("Stop button not found.");
+  }
+}
+
+// Function to click the resume button
+function clickResumeButton() {
+  const resumeButton = document.querySelector("#wdbResumeButton");
+  if (resumeButton) {
+    console.log("Clicking resume button...");
+    resumeButton.click();
+  } else {
+    console.log("Resume button not found.");
+  }
+}
+
+// Function to randomly stop betting after 1, 2, or 3 minutes
+function stopBettingRandomly() {
+  const randomInterval = Math.floor(Math.random() * (3 - 1 + 1) + 1) * 60 * 1000; // Random interval between 1 and 3 minutes
+  console.log(`It stops, The betting was between 1 and ${randomInterval / 60000} minutes...`);
+  setTimeout(function() {
+    fetchCurrentProfit(); // Fetch current profit before stopping betting
+    clickStopButton(); // Stop the betting after random interval
+    setTimeout(clickResumeButton, 25000); // Resume betting after 25 seconds
+    stopBettingRandomly(); // Call the function again for continuous looping
+  }, randomInterval);
+}
+
+// Function to fetch the current profit
+function fetchCurrentProfit() {
+  const profitElement = document.querySelector("#wdbProfit");
+  if (profitElement) {
+    const profit = parseFloat(profitElement.textContent);
+    console.log(`Current profit: ${profit}`);
+  } else {
+    console.log("Profit element not found.");
+  }
+}
+
+// Start the process
+console.log("Starting the process...");
+clickStartButton(); // Click the start button initially
+stopBettingRandomly(); // Stop betting after random interval and resume after 25 seconds
